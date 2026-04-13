@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: AlexCrause
+      changes:
+        - createTable:
+            tableName: subscribers
+            columns:
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id_telegram
+                  type: BIGINT
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: price_crypto
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: subscribers
