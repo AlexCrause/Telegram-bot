@@ -1,5 +1,6 @@
 package com.skillbox.cryptobot.bot.command;
 
+import com.skillbox.cryptobot.service.SubscribersService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 @AllArgsConstructor
 @Slf4j
 public class StartCommand implements IBotCommand {
+
+    private final SubscribersService subscribersService;
 
     @Override
     public String getCommandIdentifier() {
@@ -40,6 +43,7 @@ public class StartCommand implements IBotCommand {
                 """);
         try {
             absSender.execute(answer);
+            subscribersService.addSubscriber(message);
         } catch (TelegramApiException e) {
             log.error("Error occurred in /start command", e);
         }
