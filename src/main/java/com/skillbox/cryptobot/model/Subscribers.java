@@ -17,13 +17,13 @@ import java.util.UUID;
 public class Subscribers {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id", nullable = false)
     private UUID id;
 
     @Column(name = "user_id_telegram", nullable = false, unique = true)
     private Long userIdTelegram;
 
-    @Column(name="price_crypto")
+    @Column(name = "price_crypto")
     private Long priceCrypto;
 }
