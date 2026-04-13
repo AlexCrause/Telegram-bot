@@ -13,10 +13,10 @@ public class SubscribersService {
     private final SubscribersRepository subscribersRepository;
 
     public void addSubscriber(Message message) {
-
-        if (!subscribersRepository.existsByUserIdTelegram(message.getFrom().getId())) {
+        Long userIdTelegram = message.getFrom().getId();
+        if (!subscribersRepository.existsByUserIdTelegram(userIdTelegram)) {
             Subscribers subscriber = Subscribers.builder()
-                    .userIdTelegram(message.getFrom().getId())
+                    .userIdTelegram(userIdTelegram)
                     .priceCrypto(null)
                     .build();
             subscribersRepository.save(subscriber);
