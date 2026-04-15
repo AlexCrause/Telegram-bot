@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -25,5 +26,5 @@ public class Subscribers {
     private Long userIdTelegram;
 
     @Column(name = "price_crypto")
-    private Long priceCrypto;
+    private BigDecimal priceCrypto;
 }

@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.math.BigDecimal;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class SubscribersService {
@@ -22,6 +25,25 @@ public class SubscribersService {
             subscribersRepository.save(subscriber);
         } else {
             throw new RuntimeException("Пользователь уже есть в базе данных");
+        }
+    }
+
+    public void subscribeUserToCryptocurrencyPrice(Message message){
+        String text = message.getText();
+        Long userIdTelegram = message.getFrom().getId();
+        String stringCryptoPrice = text.substring(11).trim();
+        String replaceStringCryptoPrice = stringCryptoPrice.replace(",", ".");
+        double doubleCryptoPrice = Double.parseDouble(replaceStringCryptoPrice);
+        BigDecimal bigDecimalCryptoPrice = BigDecimal.valueOf(doubleCryptoPrice);
+        if (text.matches(".*\\b\\d+(?:[.,]\\d+)?\\b.*")) {
+            Optional<Subscribers> subscriber = subscribersRepository.findByUserIdTelegram(userIdTelegram);
+            if (subscriber.isPresent()){
+                Subscribers subscribers = subscriber.get();
+                subscribers.setPriceCrypto(bigDecimalCryptoPrice);
+                subscribersRepository.save(subscribers);
+            }
+        } else {
+            throw new RuntimeException("Некорректный ввод");
         }
     }
 }

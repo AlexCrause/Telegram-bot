@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: AlexCrause
+      changes:
+        # Удаляем старую колонку
+        - dropColumn:
+            tableName: subscribers
+            columnName: price_crypto
+        # Добавляем новую колонку с типом Double
+        - addColumn:
+            tableName: subscribers
+            columns:
+              - column:
+                  name: price_crypto
+                  type: Double
+                  constraints:
+                    nullable: true

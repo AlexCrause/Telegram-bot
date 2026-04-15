@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: AlexCrause
+      changes:
+        # Удаляем старую колонку
+        - dropColumn:
+            tableName: subscribers
+            columnName: price_crypto
+        # Добавляем новую колонку с типом Double
+        - addColumn:
+            tableName: subscribers
+            columns:
+              - column:
+                  name: price_crypto
+                  type: DECIMAL
+                  #type: DECIMAL(38, 18)
+                  constraints:
+                    nullable: true
