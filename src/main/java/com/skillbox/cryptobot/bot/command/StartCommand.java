@@ -41,6 +41,7 @@ public class StartCommand implements IBotCommand {
                 Поддерживаемые команды:
                  /get_price - получить стоимость биткоина
                  /subscribe [число] - подписаться на уведомления о цене
+                 /get_subscription - возвращает текущую подписку
                 """);
         try {
             absSender.execute(answer);

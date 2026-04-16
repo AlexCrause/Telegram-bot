@@ -13,7 +13,6 @@ databaseChangeLog:
             columns:
               - column:
                   name: price_crypto
-                  type: DECIMAL
-                  #type: DECIMAL(38, 3)
+                  type: DECIMAL(38, 3)
                   constraints:
                     nullable: true

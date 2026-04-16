@@ -46,4 +46,15 @@ public class SubscribersService {
             throw new RuntimeException("Некорректный ввод");
         }
     }
+
+    public BigDecimal getSubscriptionUser(Message message) {
+        Long userIdTelegram = message.getFrom().getId();
+        Optional<Subscribers> subscriber = subscribersRepository.findByUserIdTelegram(userIdTelegram);
+        if (subscriber.isPresent()){
+            Subscribers subscribers = subscriber.get();
+            return subscribers.getPriceCrypto();
+        } else {
+            throw new RuntimeException("Пользователя нет");
+        }
+    }
 }

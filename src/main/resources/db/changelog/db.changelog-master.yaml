@@ -5,3 +5,5 @@ databaseChangeLog:
       file: db/changelog/changeset/002-change-column-price_crypto.yml
   - include:
       file: db/changelog/changeset/003-change-column-price_crypto-bigDecimal.yml
+  - include:
+      file: db/changelog/changeset/004-change-column-price_crypto-bigDecimal.yml
