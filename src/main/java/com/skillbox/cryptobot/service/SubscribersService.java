@@ -57,4 +57,22 @@ public class SubscribersService {
             throw new RuntimeException("Пользователя нет");
         }
     }
+
+    public BigDecimal deleteSubscription(Message message) {
+        Long userIdTelegram = message.getFrom().getId();
+        Optional<Subscribers> subscriber = subscribersRepository.findByUserIdTelegram(userIdTelegram);
+        if (subscriber.isPresent()){
+            Subscribers subscribers = subscriber.get();
+            if (subscribers.getPriceCrypto() != null ) {
+                BigDecimal priceCrypto = subscribers.getPriceCrypto();
+                subscribers.setPriceCrypto(null);
+                subscribersRepository.save(subscribers);
+                return priceCrypto;
+            } else {
+                return null;
+            }
+        } else {
+            throw new RuntimeException("Пользователя нет");
+        }
+    }
 }
