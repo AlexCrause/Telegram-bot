@@ -1,10 +1,13 @@
 package com.skillbox.cryptobot.bot;
 
+import com.skillbox.cryptobot.service.CryptoCurrencyService;
+import com.skillbox.cryptobot.utils.TextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.IBotCommand;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.List;
@@ -15,15 +18,17 @@ import java.util.List;
 public class CryptoBot extends TelegramLongPollingCommandBot {
 
     private final String botUsername;
-
+    private final CryptoCurrencyService service;
 
     public CryptoBot(
             @Value("${telegram.bot.token}") String botToken,
             @Value("${telegram.bot.username}") String botUsername,
-            List<IBotCommand> commandList
+            List<IBotCommand> commandList,
+            CryptoCurrencyService cryptoCurrencyService
     ) {
         super(botToken);
         this.botUsername = botUsername;
+        this.service = cryptoCurrencyService;
 
         commandList.forEach(this::register);
     }
@@ -35,5 +40,19 @@ public class CryptoBot extends TelegramLongPollingCommandBot {
 
     @Override
     public void processNonCommandUpdate(Update update) {
+        Long chatId = update.getMessage().getChatId();
+        sendMessage(chatId);
+    }
+
+    public void sendMessage(Long chatID) {
+        log.info("sendMessage");
+        SendMessage answer = new SendMessage();
+        answer.setChatId(chatID);
+        try {
+            answer.setText("Пора покупать, стоимость биткоина " + TextUtil.toString(service.getBitcoinPrice()) + " USD");
+            execute(answer);
+        } catch (Exception e) {
+            log.error("Ошибка возникла sendMessage методе", e);
+        }
     }
 }

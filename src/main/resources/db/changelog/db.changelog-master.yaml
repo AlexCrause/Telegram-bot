@@ -7,3 +7,7 @@ databaseChangeLog:
       file: db/changelog/changeset/003-change-column-price_crypto-bigDecimal.yml
   - include:
       file: db/changelog/changeset/004-change-column-price_crypto-bigDecimal.yml
+  - include:
+      file: db/changelog/changeset/005-add-column-chat_id.yml
+  - include:
+      file: db/changelog/changeset/006-delete-column-chat_id.yml

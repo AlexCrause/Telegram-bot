@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: AlexCrause
+      changes:
+        # Добавляем новую колонку с типом Double
+        - addColumn:
+            tableName: subscribers
+            columns:
+              - column:
+                  name: chat_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true

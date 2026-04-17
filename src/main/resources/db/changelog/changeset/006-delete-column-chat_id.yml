@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: AlexCrause
+      changes:
+        # Удаляем старую колонку
+        - dropColumn:
+            tableName: subscribers
+            columnName: chat_id
