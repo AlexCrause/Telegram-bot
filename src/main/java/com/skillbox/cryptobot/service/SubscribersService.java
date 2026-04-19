@@ -17,15 +17,14 @@ public class SubscribersService {
 
     public void addSubscriber(Message message) {
         Long userIdTelegram = message.getFrom().getId();
-        if (!subscribersRepository.existsByUserIdTelegram(userIdTelegram)) {
-            Subscribers subscriber = Subscribers.builder()
-                    .userIdTelegram(userIdTelegram)
-                    .priceCrypto(null)
-                    .build();
-            subscribersRepository.save(subscriber);
-        } else {
+        if (subscribersRepository.existsByUserIdTelegram(userIdTelegram)) {
             throw new RuntimeException("Пользователь уже есть в базе данных");
         }
+        Subscribers subscriber = Subscribers.builder()
+                .userIdTelegram(userIdTelegram)
+                .priceCrypto(null)
+                .build();
+        subscribersRepository.save(subscriber);
     }
 
     public void subscribeUserToCryptocurrencyPrice(Message message){

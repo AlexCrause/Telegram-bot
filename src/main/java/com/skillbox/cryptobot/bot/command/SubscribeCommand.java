@@ -41,7 +41,8 @@ public class SubscribeCommand implements IBotCommand {
         String text = message.getText();
 
         try {
-            answer.setText("Текущая цена биткоина " + TextUtil.toString(service.getBitcoinPrice()) + " USD");
+            answer.setText(TextUtil.CURRENT_PRICE_BITCOIN +
+                    TextUtil.toString(service.getBitcoinPrice()) + " USD");
             absSender.execute(answer);
             subscribersService.subscribeUserToCryptocurrencyPrice(message);
             answer.setText("Новая подписка создана на стоимость " + text.substring(11) + " USD");

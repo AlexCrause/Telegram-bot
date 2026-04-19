@@ -23,7 +23,6 @@ public class CostTrackingMechanismService {
     private double bitcoinPrice;
 
 
-    // каждые 2 минуты
     @Scheduled(cron = "${telegram.bot.notify.delay.cronPrice}")
     public void getCostBitcoin() {
         log.info("[getCost]");
@@ -35,7 +34,6 @@ public class CostTrackingMechanismService {
         }
     }
 
-    //каждые десять мин
     @Scheduled(cron = "${telegram.bot.notify.delay.cronSubscriber}")
     public void findSubscribersAndSendMessage() {
         log.info("find");
